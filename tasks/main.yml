@@ -1,0 +1,24 @@
+---
+
+- name: Test distribution
+  assert:
+    that: >
+      ansible_os_family == 'Amazon' or
+      ansible_os_family == 'RedHat' or
+      ansible_os_family == 'Debian'
+
+- name: Install Chrony
+  package:
+    name: chrony
+    state: latest
+
+- name: Configure Chrony
+  template:
+    src: chrony.conf.j2
+    dest: "{{ chrony_conf_file }}"
+
+- name: Setup Chrony service
+  service:
+    name: chronyd
+    enabled: yes
+    state: "{{ chrony_service_state }}"

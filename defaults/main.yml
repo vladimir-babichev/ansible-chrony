@@ -1,0 +1,48 @@
+---
+# Path to configuration file
+chrony_conf_file_redhat: '/etc/chrony.conf'
+chrony_conf_file_debian: /etc/chrony/chrony.conf
+chrony_conf_file: "{{
+  chrony_conf_file_redhat
+    if ansible_os_family == 'RedHat'
+    else
+  chrony_conf_file_debian }}"
+
+# Path to driftfile
+chrony_driftfile_redhat: '/var/lib/chrony/drift'
+chrony_driftfile_debian: '/var/lib/chrony/chrony.drift'
+chrony_driftfile: "{{
+  chrony_driftfile_redhat
+    if ansible_os_family == 'RedHat'
+    else
+  chrony_driftfile_debian }}"
+
+# Path to keyfile
+chrony_keyfile_redhat: '/etc/chrony.keys'
+chrony_keyfile_debian: '/etc/chrony/chrony.keys'
+chrony_keyfile: "{{
+  chrony_keyfile_redhat
+    if ansible_os_family == 'RedHat'
+    else
+  chrony_keyfile_debian }}"
+
+# Path to dumpdir
+chrony_dumpdir: '/var/lib/chrony'
+
+# Slew configuraiton
+chrony_initstepslew: false
+chrony_initstepslew_servers: '169.254.169.123'
+chrony_initstepslew_threshold: 30
+
+# Logging configuration
+chrony_log: 'tracking measurements statistics'
+chrony_logdir: '/var/log/chrony'
+
+# Max update skew
+chrony_maxupdateskew: 100.0
+
+# Update pool
+chrony_pool: '2.ubuntu.pool.ntp.org iburst maxsources 2'
+
+# Service desired state
+chrony_service_state: 'started'

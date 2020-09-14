@@ -1,0 +1,24 @@
+# {{ ansible_managed }}
+# See https://chrony.tuxfamily.org/documentation.html for details on this file
+
+{% if chrony_pool is defined %}
+pool {{ chrony_pool }}
+{% endif %}
+
+{% if chrony_server is defined %}
+server {{ chrony_server }}
+{% endif %}
+
+keyfile {{ chrony_keyfile }}
+
+driftfile {{ chrony_driftfile }}
+log {{ chrony_log }}
+logdir {{ chrony_logdir }}
+maxupdateskew {{ chrony_maxupdateskew }}
+dumponexit
+dumpdir {{ chrony_dumpdir }}
+{% if chrony_initstepslew %}
+initstepslew {{ chrony_initstepslew_threshold }} {{ chrony_initstepslew_servers }}
+{% endif %}
+
+logchange 0.5
